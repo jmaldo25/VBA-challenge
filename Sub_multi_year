@@ -1,0 +1,91 @@
+' Set new parameters to work for multi sheets
+' Use similar funcrtions as test sheet
+' Account for tickers to open at 0
+' Make sure to account for the variences in the ticker names and larger ticker variances
+' Try to get the Challenge questions
+
+Sub multi_year():
+
+Dim ticker1 As String
+Dim tickerSave1 As String
+Dim tickerSave2 As String
+Dim tickerSave3 As String
+Dim ticker2 As String
+Dim mrktOpen As Double
+Dim mrktClose As Double
+Dim volume As Double
+Dim volumeSum As Double
+Dim iSave1 As Double
+Dim iSave2 As Double
+
+Dim maxVol As Double
+Dim inc1 As Double
+Dim inc2 As Double
+Dim incSave As Double
+Dim dec1 As Double
+Dim dec2 As Double
+Dim decSave As Double
+Dim vol1 As Double
+Dim vol2 AS Double
+
+Dim ws As Worksheet
+
+
+For Each ws In sheets
+    ws.Cells(1,9) = "Ticker"
+    ws.Cells(1,10) = "Yearly Change"
+    ws.Cells(1,11) = "Percent Change"
+    ws.Cells(1,12) = "Total Volume"
+
+
+    For n = 780000 To 2 Step -1
+        If ws.Cells(n, 3) = "0" Then
+        ws.Rows(n).EntireRow.Delete
+        End If
+
+    Next n
+
+    iSave1 = 2
+
+        For j = 2 To 5000
+
+        mrktOpen = ws.Cells(iSave1, 3).Value
+        volumeSum = 0
+
+            For I = iSave1 To iSave1 + 365
+                ticker1 = ws.Cells(i, 1)
+                ticker2 = ws.Cells(i + 1, 1)
+                volume = ws.Cells(i, 7).Value
+                volumeSum = volumeSum + volume
+
+                If ticker1 <> ticker2 Then
+                mrktClose = ws.Cells(i, 6).Value
+
+                ws.Cells(j, 9).Value = ticker1
+                ws.Cells(j, 10).Value = mrktClose - mrktOpen
+                ws.Cells(j, 11).Value = ((mrktClose - mrktOpen) / mrktOpen)
+                ws.Cells(j, 12).Value = volumeSum
+
+                ticker1 = ws.Cells(I + 1, 1).Value
+                mrktOpen = ws.Cells(I + 1, 3).Value
+                iSave1 = I + 1
+                Exit For
+                End If
+
+        Next I
+            If ws.Cells(j, 10).Value > 0 Then
+                ws.Cells(j, 10).Interior.ColorIndex = 4
+            ElseIf ws.Cells(j, 10).Value = 0 Then
+                ws.Cells(j, 10).Interior.ColorIndex = 2
+            Else:
+                ws.Cells(j, 10).Interior.ColorIndex = 3
+
+            End If
+
+    Next j
+
+    Next ws
+
+
+    End Sub
+
