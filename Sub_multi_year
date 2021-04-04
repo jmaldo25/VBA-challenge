@@ -18,15 +18,7 @@ Dim volumeSum As Double
 Dim iSave1 As Double
 Dim iSave2 As Double
 
-Dim maxVol As Double
-Dim inc1 As Double
-Dim inc2 As Double
-Dim incSave As Double
-Dim dec1 As Double
-Dim dec2 As Double
-Dim decSave As Double
-Dim vol1 As Double
-Dim vol2 AS Double
+
 
 Dim ws As Worksheet
 
